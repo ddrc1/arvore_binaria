@@ -100,6 +100,38 @@ float buscar_interativo (ArvoreBB *raiz, int chave) {
 	return 99999.99;
 }
 
+float buscar_recursivo (ArvoreBB *no, int chave) {
+	if (no == NULL) {
+		printf("Error: nó de chave %d não existe\n", chave);
+		return 99999.99;
+	}
+
+	if (chave > (*no).chave) {
+		buscar_recursivo((*no).dir, chave);
+	}
+	else if (chave < (*no).chave) {
+		buscar_recursivo((*no).esq, chave);
+	}
+	else {
+		printf("O nó de chave %d tem conteúdo %.2f\n", (*no).chave, (*no).conteudo);
+		return 1;
+	}
+}
+
+int listar_elementos (ArvoreBB *raiz) {
+	if (raiz == NULL) {
+		printf("Error: arvore vazia\n");
+		return 99999.99;
+	} 
+	ArvoreBB *aux = minimo(raiz);
+	
+	while (aux != NULL) {
+		printf("O nó de chave %d tem conteúdo %.2f\n", (*aux).chave, (*aux).conteudo);
+		aux = sucessor(raiz, (*aux).chave);
+	}
+
+	return 1;
+}
 
 ArvoreBB *sucessor(ArvoreBB *no, int chave) {
 	ArvoreBB *aux2, *aux = buscar(no, chave);
